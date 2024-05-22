@@ -9,7 +9,7 @@ type Props = {};
 
 function page({}: Props) {
   return (
-    <div>
+    <div className=" flex flex-col justify-center items-center min-h-screen">
       <HeroSection />
       <Features />
     </div>
