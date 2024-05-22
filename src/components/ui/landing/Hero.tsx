@@ -48,6 +48,14 @@ export function HeroSection() {
         >
           Checkout Demo
         </button>
+        <button
+          onClick={() =>
+            router.push("https://docs.nextjs-starter-kit.koesterjannik.com")
+          }
+          className="w-40 h-10 rounded-xl bg-red-400 text-black border border-black  text-sm"
+        >
+          Read the docs
+        </button>
       </div>
     </div>
   );
