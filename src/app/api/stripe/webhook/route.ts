@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 import stripe from "../../../../server/stripe";
 import db from "../../../../server/db";
+import { mailer } from "../../../../server/mailer/mailer";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -34,13 +35,18 @@ export async function POST(req: Request) {
           transactionId: session.id,
         },
       });
+      const userFromDb = await db.user.findUnique({
+        where: {
+          id: session.metadata.userId,
+        },
+      });
 
       console.log("Updated");
-    //   await mailer.sendEmail({
-    //     body: `Thank you for buying our products. Your transaction id is ${session.id}`,
-    //     receiver: [userFromDb!.email!],
-    //     subject: "Thank you for buying our products",
-    //   });
+      await mailer.sendEmail({
+        body: `Thank you for buying our products. Your transaction id is ${session.id}`,
+        receiver: [userFromDb!.email!],
+        subject: "Thank you for buying our products",
+      });
 
     default:
       console.log(`Unhandled event type ${eventType}`);

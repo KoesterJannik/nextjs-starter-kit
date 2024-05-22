@@ -26,7 +26,7 @@ export async function buyProduct(formData: FormData) {
   const PRICE_IN_USD = productFromDb!.price;
   const PRICE_IN_CENTS = PRICE_IN_USD * 100;
 
-  const BASE_URL = process.env.BASE_URL!;
+  const BASE_URL = process.env.AUTH_URL!;
 
   const SUCCESS_REDIRECT = BASE_URL + "/purchases?success=true";
   const CANCEL_REDIRECT = BASE_URL + "/purchases?success=false";

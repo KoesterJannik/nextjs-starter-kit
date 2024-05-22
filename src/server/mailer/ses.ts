@@ -1,13 +1,5 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
-export type EmailSendCommandParamsType = {
-  subject: string;
-  body: string;
-  receiver: string[];
-};
-
-export interface IEmailService {
-  sendEmail(content: EmailSendCommandParamsType): Promise<unknown>;
-}
+import { EmailSendCommandParamsType, IEmailService } from "./types";
 
 export class AWSEmailService implements IEmailService {
   private emailClient: SESClient = new SESClient({
@@ -47,5 +39,3 @@ export class AWSEmailService implements IEmailService {
     });
   }
 }
-const mailer = new AWSEmailService();
-export default mailer;
