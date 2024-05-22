@@ -17,6 +17,8 @@ model User {
     sessions      Session[]
     roles         String[]  @default(["user"])
 
+    userPayments UserPayment[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -37,7 +39,6 @@ model Account {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    bananas   Int      @default(0)
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -62,4 +63,29 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Product {
+    id          String  @id @default(auto()) @map("_id") @db.ObjectId
+    name        String
+    description String?
+    price       Float
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    UserPayment UserPayment[]
+}
+
+model UserPayment {
+    id            String  @id @default(auto()) @map("_id") @db.ObjectId
+    userId        String  @db.ObjectId
+    productId     String  @db.ObjectId
+    amount        Float
+    transactionId String
+    user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    product       Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
