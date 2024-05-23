@@ -2,7 +2,7 @@ import { SignIn } from "@/components/ui/auth/sign-in";
 
 function page() {
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center h-screen">
       <SignIn />
     </div>
   );
