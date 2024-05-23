@@ -25,6 +25,11 @@ export default function RootLayout({
           selfHosted={true}
           customDomain="https://analytics.koesterjannik.com"
         />
+        <script
+          defer
+          data-domain="nextjs-starter-kit.koesterjannik.com"
+          src="https://analytics.koesterjannik.com:8000/js/script.js"
+        ></script>
       </head>
       <body className={inter.className}>
         <Providers>{children}</Providers>
