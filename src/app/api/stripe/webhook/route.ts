@@ -41,12 +41,15 @@ export async function POST(req: Request) {
         },
       });
 
-      console.log("Updated");
-      await mailer.sendEmail({
-        body: `Thank you for buying our products. Your transaction id is ${session.id}`,
-        receiver: [userFromDb!.email!],
-        subject: "Thank you for buying our products",
-      });
+      try {
+        await mailer.sendEmail({
+          body: `Thank you for buying our products. Your transaction id is ${session.id}`,
+          receiver: [userFromDb!.email!],
+          subject: "Thank you for buying our products",
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
     default:
       console.log(`Unhandled event type ${eventType}`);
